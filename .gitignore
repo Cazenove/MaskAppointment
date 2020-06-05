@@ -1,3 +1,4 @@
 # Editor directories and files
 .idea
-
+/frontend/appointment/unpackage
+/frontend/appointment/node_modules
