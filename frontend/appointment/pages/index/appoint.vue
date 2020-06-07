@@ -11,6 +11,10 @@
 				<input placeholder="请输入您的身份证号码" name="input" v-model="form.id"></input>
 			</view>
 			<view class="cu-form-group">
+				<view class="title">手机号码</view>
+				<input placeholder="请输入您的手机号码" name="input" v-model="form.telephone"></input>
+			</view>
+			<view class="cu-form-group">
 				<view class="title">口罩预约数量</view>
 				<picker @change="PickerChange" :value="index" :range="masknumber" v-model="form.number">
 					<view class="picker">
@@ -45,6 +49,7 @@
 				form: {
 					name: '',
 					id: '',
+					telephone: '',
 					number: null,
 					position: null
 				}
@@ -58,7 +63,11 @@
 				this.index1 = e.detail.value
 			},
 			submit() {
-				console.log(this.form);
+				if(this.form.name == 1) {
+					this.$router.push('/pages/index/success')
+				} else if(this.form.name == 2) {
+					this.$router.push('/pages/index/failed')
+				}
 			}
 		}
 	}

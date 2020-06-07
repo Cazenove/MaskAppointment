@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import vueQr from 'vue-qr'
 
 import basics from './pages/basics/home.vue'
 Vue.component('basics',basics)

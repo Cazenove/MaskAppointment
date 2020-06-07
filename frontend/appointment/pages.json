@@ -109,6 +109,14 @@
             "path" : "pages/index/search",
             "style" : {}
         }
+		,{
+		    "path" : "pages/index/success",
+		    "style" : {}
+		}
+		,{
+		    "path" : "pages/index/failed",
+		    "style" : {}
+		}
     ],
 	"globalStyle": {
 		"mp-alipay": {
