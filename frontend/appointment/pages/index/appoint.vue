@@ -1,6 +1,9 @@
 <template>
 	<view>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="backText">返回</block><block slot="content">口罩预约</block></cu-custom>
+		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+			<block slot="backText">返回</block>
+			<block slot="content">口罩预约</block>
+		</cu-custom>
 		<form>
 			<view class="cu-form-group margin-top">
 				<view class="title">姓名</view>
@@ -44,15 +47,48 @@
 			return {
 				index: -1,
 				index1: -1,
-				masknumber: [1, 2, 3],
-				position: ['A药房', 'B药房', 'C药房'],
+				masknumber: [],
+				position: [],
 				form: {
 					name: '',
 					id: '',
 					telephone: '',
 					number: null,
 					position: null
+				},
+				rules: {
+					name: {
+						rule: /\S/,
+						msg: "姓名不能为空"
+					},
+					id: {
+						rule: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}[0-9Xx]$)/,
+						msg: "身份证号码有误"
+					},
+					telephone: {
+						rule: /^1(3|4|5|7|8)\d{9}$/,
+						msg: "手机号码有误"
+					},
+					number: {
+						rule: /\S/,
+						msg: "预约数量不能为空"
+					},
+					position: {
+						rule: /\S/,
+						msg: "取货地点不能为空"
+					}
 				}
+			}
+		},
+		mounted() {
+			this.position = [
+				'A药房',
+				'B药房',
+				'C药房',
+				'D药房'
+			]
+			for(var i=1; i<=10; i++) {
+				this.masknumber[i] = i;
 			}
 		},
 		methods: {
@@ -63,16 +99,41 @@
 				this.index1 = e.detail.value
 			},
 			submit() {
-				if(this.form.name == 1) {
+				//进行表单检查
+				if (!this.validate('name')) return;
+				if (!this.validate("id")) return;
+				if (!this.validate("telephone")) return;
+				if (!this.validate("number")) return;
+				if (!this.validate("position")) return;
+				uni.showLoading({
+					title: "表单提交中..."
+				});
+				if(this.form.name == "成功") {
 					this.$router.push('/pages/index/success')
-				} else if(this.form.name == 2) {
+				} else if(this.form.name == "失败") {
 					this.$router.push('/pages/index/failed')
 				}
+			},
+			validate(key) {
+				let bool = true;
+				if (!this.rules[key].rule.test(this.form[key])) {
+					//提示信息
+					uni.showToast({
+						image: "../../static/close.png",
+						title: this.rules[key].msg,
+					})
+					//取反
+					bool = false;
+					return false;
+				}
+				return bool;
 			}
 		}
 	}
 </script>
 
 <style>
-
+	.cu-form-group .title {
+		min-width: calc(4em + 30px);
+	}
 </style>

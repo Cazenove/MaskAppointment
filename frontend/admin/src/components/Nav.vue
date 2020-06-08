@@ -13,9 +13,6 @@
 						<router-link class="nav-link" to="/management">预约管理</router-link>
 					</li>
 					<li class="nav-item">
-						<router-link class="nav-link" to="/list">中签名单</router-link>
-					</li>
-					<li class="nav-item">
 						<router-link class="nav-link" to="/statistics">统计</router-link>
 					</li>
 					<li class="nav-item">

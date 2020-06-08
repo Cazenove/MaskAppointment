@@ -10,8 +10,16 @@
 				<button class="cu-btn bg-green shadow-blur round" @click="search">搜索</button>
 			</view>
 		</view>
-		<view v-if="isSearch" class="flex solid-bottom padding justify-center">
-			<vue-qr v-bind:text="this.telephone" :size="300"></vue-qr>
+		<view v-if="isDraw">
+			<view class="flex solid-bottom padding justify-center">
+				<vue-qr v-bind:text="this.data" :size="300"></vue-qr>
+			</view>
+			<view class="flex-sub text-center">
+				<view class="solid-bottom text-xl padding">
+					<text class="text-black text-bold">您已中签，凭二维码到指定药房购买口罩！</text>
+				</view>
+			</view>
+			<button class="cu-btn bg-red margin-tb-sm lg">保存到相册</button>
 		</view>
 	</view>
 </template>
@@ -22,7 +30,8 @@
 		data() {
 			return {
 				telephone: '',
-				isSearch: false
+				isDraw: false,
+				data: {}
 			}
 		},
 		components: {
@@ -30,7 +39,8 @@
 		},
 		methods: {
 			search() {
-				this.isSearch = true;
+				this.isDraw = true;
+				this.data = this.telephone;
 			}
 		}
 	}
