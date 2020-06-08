@@ -1,6 +1,7 @@
 package com.mask.backend.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Appointment implements Serializable {
     private Integer id;
@@ -9,9 +10,9 @@ public class Appointment implements Serializable {
 
     private Integer limit;
 
-    private String starttime;
+    private Date starttime;
 
-    private String endtime;
+    private Date endtime;
 
     private Integer status;
 
@@ -41,19 +42,19 @@ public class Appointment implements Serializable {
         this.limit = limit;
     }
 
-    public String getStarttime() {
+    public Date getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(String starttime) {
+    public void setStarttime(Date starttime) {
         this.starttime = starttime;
     }
 
-    public String getEndtime() {
+    public Date getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(String endtime) {
+    public void setEndtime(Date endtime) {
         this.endtime = endtime;
     }
 

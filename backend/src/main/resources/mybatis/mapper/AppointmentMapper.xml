@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mask.backend.mapper.AppointmentMapper">
   <resultMap id="BaseResultMap" type="com.mask.backend.pojo.Appointment">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="max" jdbcType="INTEGER" property="max" />
-    <result column="limit" jdbcType="INTEGER" property="limit" />
-    <result column="startTime" jdbcType="VARCHAR" property="starttime" />
-    <result column="endTime" jdbcType="VARCHAR" property="endtime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="max" jdbcType="INTEGER" property="max"/>
+    <result column="limit" jdbcType="INTEGER" property="limit"/>
+    <result column="startTime" jdbcType="TIMESTAMP" property="starttime"/>
+    <result column="endTime" jdbcType="TIMESTAMP" property="endtime"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -86,7 +86,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from appointment_list
     where id = #{id,jdbcType=INTEGER}
@@ -102,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.mask.backend.pojo.Appointment" useGeneratedKeys="true">
-    insert into appointment_list ("max", "limit", startTime, 
-      endTime, "status")
-    values (#{max,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}, #{starttime,jdbcType=VARCHAR}, 
-      #{endtime,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+    insert into appointment_list ("max", "limit", startTime,
+                                  endTime, "status")
+    values (#{max,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}, #{starttime,jdbcType=TIMESTAMP},
+            #{endtime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.mask.backend.pojo.Appointment" useGeneratedKeys="true">
     insert into appointment_list
@@ -134,10 +134,10 @@
         #{limit,jdbcType=INTEGER},
       </if>
       <if test="starttime != null">
-        #{starttime,jdbcType=VARCHAR},
+        #{starttime,jdbcType=TIMESTAMP},
       </if>
       <if test="endtime != null">
-        #{endtime,jdbcType=VARCHAR},
+        #{endtime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -163,10 +163,10 @@
         "limit" = #{record.limit,jdbcType=INTEGER},
       </if>
       <if test="record.starttime != null">
-        startTime = #{record.starttime,jdbcType=VARCHAR},
+        startTime = #{record.starttime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.endtime != null">
-        endTime = #{record.endtime,jdbcType=VARCHAR},
+        endTime = #{record.endtime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null">
         "status" = #{record.status,jdbcType=INTEGER},
@@ -179,11 +179,11 @@
   <update id="updateByExample" parameterType="map">
     update appointment_list
     set id = #{record.id,jdbcType=INTEGER},
-      "max" = #{record.max,jdbcType=INTEGER},
-      "limit" = #{record.limit,jdbcType=INTEGER},
-      startTime = #{record.starttime,jdbcType=VARCHAR},
-      endTime = #{record.endtime,jdbcType=VARCHAR},
-      "status" = #{record.status,jdbcType=INTEGER}
+    "max" = #{record.max,jdbcType=INTEGER},
+    "limit" = #{record.limit,jdbcType=INTEGER},
+    startTime = #{record.starttime,jdbcType=TIMESTAMP},
+    endTime = #{record.endtime,jdbcType=TIMESTAMP},
+    "status" = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -198,10 +198,10 @@
         "limit" = #{limit,jdbcType=INTEGER},
       </if>
       <if test="starttime != null">
-        startTime = #{starttime,jdbcType=VARCHAR},
+        startTime = #{starttime,jdbcType=TIMESTAMP},
       </if>
       <if test="endtime != null">
-        endTime = #{endtime,jdbcType=VARCHAR},
+        endTime = #{endtime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
         "status" = #{status,jdbcType=INTEGER},
@@ -211,11 +211,11 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mask.backend.pojo.Appointment">
     update appointment_list
-    set "max" = #{max,jdbcType=INTEGER},
-      "limit" = #{limit,jdbcType=INTEGER},
-      startTime = #{starttime,jdbcType=VARCHAR},
-      endTime = #{endtime,jdbcType=VARCHAR},
-      "status" = #{status,jdbcType=INTEGER}
+    set "max"     = #{max,jdbcType=INTEGER},
+        "limit"   = #{limit,jdbcType=INTEGER},
+        startTime = #{starttime,jdbcType=TIMESTAMP},
+        endTime   = #{endtime,jdbcType=TIMESTAMP},
+        "status"  = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

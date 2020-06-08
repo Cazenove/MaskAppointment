@@ -1,6 +1,7 @@
 package com.mask.backend.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AppointmentExample {
@@ -294,62 +295,52 @@ public class AppointmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeEqualTo(String value) {
+        public Criteria andStarttimeEqualTo(Date value) {
             addCriterion("startTime =", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeNotEqualTo(String value) {
+        public Criteria andStarttimeNotEqualTo(Date value) {
             addCriterion("startTime <>", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeGreaterThan(String value) {
+        public Criteria andStarttimeGreaterThan(Date value) {
             addCriterion("startTime >", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeGreaterThanOrEqualTo(String value) {
+        public Criteria andStarttimeGreaterThanOrEqualTo(Date value) {
             addCriterion("startTime >=", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeLessThan(String value) {
+        public Criteria andStarttimeLessThan(Date value) {
             addCriterion("startTime <", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeLessThanOrEqualTo(String value) {
+        public Criteria andStarttimeLessThanOrEqualTo(Date value) {
             addCriterion("startTime <=", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeLike(String value) {
-            addCriterion("startTime like", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeNotLike(String value) {
-            addCriterion("startTime not like", value, "starttime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarttimeIn(List<String> values) {
+        public Criteria andStarttimeIn(List<Date> values) {
             addCriterion("startTime in", values, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeNotIn(List<String> values) {
+        public Criteria andStarttimeNotIn(List<Date> values) {
             addCriterion("startTime not in", values, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeBetween(String value1, String value2) {
+        public Criteria andStarttimeBetween(Date value1, Date value2) {
             addCriterion("startTime between", value1, value2, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andStarttimeNotBetween(String value1, String value2) {
+        public Criteria andStarttimeNotBetween(Date value1, Date value2) {
             addCriterion("startTime not between", value1, value2, "starttime");
             return (Criteria) this;
         }
@@ -364,62 +355,52 @@ public class AppointmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeEqualTo(String value) {
+        public Criteria andEndtimeEqualTo(Date value) {
             addCriterion("endTime =", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeNotEqualTo(String value) {
+        public Criteria andEndtimeNotEqualTo(Date value) {
             addCriterion("endTime <>", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeGreaterThan(String value) {
+        public Criteria andEndtimeGreaterThan(Date value) {
             addCriterion("endTime >", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeGreaterThanOrEqualTo(String value) {
+        public Criteria andEndtimeGreaterThanOrEqualTo(Date value) {
             addCriterion("endTime >=", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeLessThan(String value) {
+        public Criteria andEndtimeLessThan(Date value) {
             addCriterion("endTime <", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeLessThanOrEqualTo(String value) {
+        public Criteria andEndtimeLessThanOrEqualTo(Date value) {
             addCriterion("endTime <=", value, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeLike(String value) {
-            addCriterion("endTime like", value, "endtime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEndtimeNotLike(String value) {
-            addCriterion("endTime not like", value, "endtime");
-            return (Criteria) this;
-        }
-
-        public Criteria andEndtimeIn(List<String> values) {
+        public Criteria andEndtimeIn(List<Date> values) {
             addCriterion("endTime in", values, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeNotIn(List<String> values) {
+        public Criteria andEndtimeNotIn(List<Date> values) {
             addCriterion("endTime not in", values, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeBetween(String value1, String value2) {
+        public Criteria andEndtimeBetween(Date value1, Date value2) {
             addCriterion("endTime between", value1, value2, "endtime");
             return (Criteria) this;
         }
 
-        public Criteria andEndtimeNotBetween(String value1, String value2) {
+        public Criteria andEndtimeNotBetween(Date value1, Date value2) {
             addCriterion("endTime not between", value1, value2, "endtime");
             return (Criteria) this;
         }
