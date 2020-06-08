@@ -108,6 +108,7 @@ public class AdminServiceImpl implements AdminService {
         Collections.shuffle(list);
 
         for(int i=0; i<list.size() && maskNum-list.get(i).getAppointNum() >= 0; i++) {
+            maskNum -= list.get(i).getAppointNum();
             Draw draw = new Draw();
             draw.setAppointmentId(appointment.getId());
             draw.setWaitingId(list.get(i).getId());
