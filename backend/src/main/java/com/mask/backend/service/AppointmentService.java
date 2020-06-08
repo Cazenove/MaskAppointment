@@ -1,5 +1,7 @@
 package com.mask.backend.service;
 
+import com.mask.backend.dto.RegionalDrawDTO;
+import com.mask.backend.pojo.Appointment;
 import com.mask.backend.pojo.Place;
 import com.mask.backend.resource.AppointResource;
 import com.mask.backend.resource.QueryResource;
@@ -41,4 +43,20 @@ public interface AppointmentService {
      * @return 预约结果
      */
     List<QueryResult> query(QueryResource resource);
+
+    /**
+     *返回所有轮次信息
+     *
+     *
+     * @return 轮次信息
+     */
+    List<Appointment> listAppointment();
+
+    /**
+     *返回地区中签数
+     *
+     * @param id 轮次id
+     * @return 各地中签数
+     */
+    List<RegionalDrawDTO> listCount(Integer id);
 }
