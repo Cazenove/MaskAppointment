@@ -11,8 +11,6 @@ import com.mask.backend.service.AppointmentService;
 import com.mask.backend.util.PropertyMapperUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.jvm.hotspot.utilities.Assert;
-
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
