@@ -1,20 +1,19 @@
 package com.mask.backend.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Appointment implements Serializable {
     private Integer id;
 
-    private Integer max;
+    private Integer maxx;
 
-    private Integer limit;
+    private Integer limitt;
 
-    private Date starttime;
+    private String starttime;
 
-    private Date endtime;
+    private String endtime;
 
-    private Integer status;
+    private Integer statuss;
 
     private static final long serialVersionUID = 1L;
 
@@ -26,43 +25,43 @@ public class Appointment implements Serializable {
         this.id = id;
     }
 
-    public Integer getMax() {
-        return max;
+    public Integer getMaxx() {
+        return maxx;
     }
 
-    public void setMax(Integer max) {
-        this.max = max;
+    public void setMaxx(Integer maxx) {
+        this.maxx = maxx;
     }
 
-    public Integer getLimit() {
-        return limit;
+    public Integer getLimitt() {
+        return limitt;
     }
 
-    public void setLimit(Integer limit) {
-        this.limit = limit;
+    public void setLimitt(Integer limitt) {
+        this.limitt = limitt;
     }
 
-    public Date getStarttime() {
+    public String getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(Date starttime) {
+    public void setStarttime(String starttime) {
         this.starttime = starttime;
     }
 
-    public Date getEndtime() {
+    public String getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(Date endtime) {
+    public void setEndtime(String endtime) {
         this.endtime = endtime;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getStatuss() {
+        return statuss;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatuss(Integer statuss) {
+        this.statuss = statuss;
     }
 }
