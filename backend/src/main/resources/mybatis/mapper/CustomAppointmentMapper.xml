@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mask.backend.mapper.CustomAppointmentMapper">
+  <resultMap id="BaseResultMap" type="com.mask.backend.resource.QueryResult">
+    <id column="id_num" jdbcType="INTEGER" property="idNum" />
+    <result column="namee" jdbcType="VARCHAR" property="name" />
+    <result column="appoint_num" jdbcType="INTEGER" property="appointNum" />
+    <result column="endTime" jdbcType="VARCHAR" property="time" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+  </resultMap>
+  <select id="queryAppoint" resultMap="BaseResultMap">
+    SELECT
+      waiting_list.id_num,
+      waiting_list.namee,
+      waiting_list.appoint_num,
+      place.place,
+      appointment_list.endTime
+    FROM
+      waiting_list,
+      place,
+      appointment_list,
+      draw_list
+    WHERE
+      waiting_list.telephone = #{telephone}
+      AND draw_list.waiting_id = waiting_list.id
+      AND draw_list.appointment_id = appointment_list.id
+      AND place.id = waiting_list.place_id
+  </select>
+</mapper>

@@ -12,13 +12,13 @@ import javax.validation.constraints.NotNull;
 public class AppointResource {
     @NotNull
     @Length(min = 1, max = 18)
-    private String id;
+    private String idNum;
     @NotNull
     @Length(min = 1, max = 20)
-    private String name;
+    private String namee;
     @NotNull
     @Length(min = 1, max = 11)
-    private String phone;
-    private int num;
-    private String place;
+    private String telephone;
+    private Integer appointNum;
+    private Integer placeId;
 }

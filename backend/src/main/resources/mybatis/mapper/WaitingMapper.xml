@@ -3,7 +3,7 @@
 <mapper namespace="com.mask.backend.mapper.WaitingMapper">
   <resultMap id="BaseResultMap" type="com.mask.backend.pojo.Waiting">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="namee" jdbcType="VARCHAR" property="namee" />
     <result column="id_num" jdbcType="VARCHAR" property="idNum" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="appointment_id" jdbcType="INTEGER" property="appointmentId" />
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, "name", id_num, telephone, appointment_id, appoint_num, place_id
+    id, namee, id_num, telephone, appointment_id, appoint_num, place_id
   </sql>
   <select id="selectByExample" parameterType="com.mask.backend.pojo.WaitingExample" resultMap="BaseResultMap">
     select
@@ -103,18 +103,18 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.mask.backend.pojo.Waiting" useGeneratedKeys="true">
-    insert into waiting_list ("name", id_num, telephone, 
+    insert into waiting_list (namee, id_num, telephone, 
       appointment_id, appoint_num, place_id
       )
-    values (#{name,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+    values (#{namee,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
       #{appointmentId,jdbcType=INTEGER}, #{appointNum,jdbcType=INTEGER}, #{placeId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.mask.backend.pojo.Waiting" useGeneratedKeys="true">
     insert into waiting_list
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        "name",
+      <if test="namee != null">
+        namee,
       </if>
       <if test="idNum != null">
         id_num,
@@ -133,8 +133,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="namee != null">
+        #{namee,jdbcType=VARCHAR},
       </if>
       <if test="idNum != null">
         #{idNum,jdbcType=VARCHAR},
@@ -165,8 +165,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        "name" = #{record.name,jdbcType=VARCHAR},
+      <if test="record.namee != null">
+        namee = #{record.namee,jdbcType=VARCHAR},
       </if>
       <if test="record.idNum != null">
         id_num = #{record.idNum,jdbcType=VARCHAR},
@@ -191,7 +191,7 @@
   <update id="updateByExample" parameterType="map">
     update waiting_list
     set id = #{record.id,jdbcType=INTEGER},
-      "name" = #{record.name,jdbcType=VARCHAR},
+      namee = #{record.namee,jdbcType=VARCHAR},
       id_num = #{record.idNum,jdbcType=VARCHAR},
       telephone = #{record.telephone,jdbcType=VARCHAR},
       appointment_id = #{record.appointmentId,jdbcType=INTEGER},
@@ -204,8 +204,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.mask.backend.pojo.Waiting">
     update waiting_list
     <set>
-      <if test="name != null">
-        "name" = #{name,jdbcType=VARCHAR},
+      <if test="namee != null">
+        namee = #{namee,jdbcType=VARCHAR},
       </if>
       <if test="idNum != null">
         id_num = #{idNum,jdbcType=VARCHAR},
@@ -227,7 +227,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mask.backend.pojo.Waiting">
     update waiting_list
-    set "name" = #{name,jdbcType=VARCHAR},
+    set namee = #{namee,jdbcType=VARCHAR},
       id_num = #{idNum,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       appointment_id = #{appointmentId,jdbcType=INTEGER},

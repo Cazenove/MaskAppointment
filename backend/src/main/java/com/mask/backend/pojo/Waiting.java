@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Waiting implements Serializable {
     private Integer id;
 
-    private String name;
+    private String namee;
 
     private String idNum;
 
@@ -27,12 +27,12 @@ public class Waiting implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNamee() {
+        return namee;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNamee(String namee) {
+        this.namee = namee;
     }
 
     public String getIdNum() {

@@ -2,14 +2,20 @@ package com.mask.backend.controller;
 
 import com.mask.backend.resource.AppointResource;
 import com.mask.backend.resource.QueryResource;
+import com.mask.backend.resource.QueryResult;
 import com.mask.backend.resource.ResponceBody;
+import com.mask.backend.service.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class AppointmentController {
+
+    @Resource(name = "appointmentServiceImpl")
+    AppointmentService appointmentService;
 
     /**
      * 获取当前预约状态
@@ -19,8 +25,10 @@ public class AppointmentController {
     @GetMapping("/status")
     @ResponseBody
     Object getStatus() {
-        // todo
-        return ResponceBody.ok(null, null);
+        if (appointmentService.getStatus() == 1) {
+            return ResponceBody.ok(null, null);
+        }
+        return ResponceBody.error("未开放预约");
     }
 
     /**
@@ -31,8 +39,7 @@ public class AppointmentController {
     @GetMapping("/place")
     @ResponseBody
     Object getPlace() {
-        // todo
-        return ResponceBody.ok(null, new ArrayList<>());
+        return ResponceBody.ok(null, appointmentService.getPlace());
     }
 
     /**
@@ -44,8 +51,12 @@ public class AppointmentController {
     @PostMapping("/appoint")
     @ResponseBody
     Object appoint(@RequestBody @Valid AppointResource resource) {
-        // todo
-        return ResponceBody.ok("预约成功", null);
+        String result = appointmentService.doAppointment(resource);
+
+        if ("ok".equals(result)) {
+            return ResponceBody.ok("预约成功", null);
+        }
+        return ResponceBody.error(result);
     }
 
     /**
@@ -57,7 +68,10 @@ public class AppointmentController {
     @PostMapping("/query")
     @ResponseBody
     Object query(@RequestBody @Valid QueryResource resource) {
-        // todo
-        return ResponceBody.ok(null, new ArrayList<>());
+        List<QueryResult> queryResults = appointmentService.query(resource);
+        if (queryResults.isEmpty()) {
+            return ResponceBody.error("未中签");
+        }
+        return ResponceBody.ok(null, queryResults.get(0));
     }
 }
