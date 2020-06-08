@@ -29,9 +29,9 @@
 							<button data-toggle="modal" data-target="#myModal" class="btn btn-danger">结束</button>
 						</div>
 						<div v-else>
-							<button type="button" @click="showList(row.id)" class="btn btn-info">中奖名单</button>
+							<button type="button" @click="showDrawModal(row.id)" class="btn btn-info">中奖名单</button>
 							&nbsp;
-							<button type="button" @click="showStatics(row.id)" class="btn btn-info">统计</button>
+							<button type="button" @click="showPlaceModal(row.id)" class="btn btn-info">统计</button>
 						</div>
 					</template>
 				</vxe-table-column>
@@ -39,8 +39,27 @@
 		</div>
 		
 		<!-- 新增模态框 -->
-		<vxe-modal v-model="showEdit" :title="selectRow ? '编辑&保存' : '新增预约轮次'" width="800" :loading="submitLoading" resize destroy-on-close>
+		<vxe-modal v-model="showEdit" :title="新增预约轮次" width="800" :loading="submitLoading" resize destroy-on-close>
 			<vxe-form :data="formData" :items="formItems" :rules="formRules" title-align="right" title-width="100" @submit="submitEvent"></vxe-form>
+		</vxe-modal>
+		
+		<!-- 中奖名单 -->
+		<vxe-modal v-model="showDraw" :title="中奖名单" width="800" :loading="submitLoading" resize destroy-on-close>
+			<vxe-table border resizable row-key highlight-hover-row keep-source :data="drawData">
+				<vxe-table-column field="name" title="姓名"></vxe-table-column>
+				<vxe-table-column field="id" title="身份证号码"></vxe-table-column>
+				<vxe-table-column field="telephone" title="电话号码"></vxe-table-column>
+				<vxe-table-column field="num" title="预约数量"></vxe-table-column>
+				<vxe-table-column field="place" title="预约地点"></vxe-table-column>
+			</vxe-table>
+		</vxe-modal>
+		
+		<!-- 地区统计 -->
+		<vxe-modal v-model="showPlace" :title="中奖地区统计" width="800" :loading="submitLoading" resize destroy-on-close>
+			<vxe-table border resizable row-key highlight-hover-row keep-source :data="placeData">
+				<vxe-table-column field="place" title="地点"></vxe-table-column>
+				<vxe-table-column field="num" title="需要数量"></vxe-table-column>
+			</vxe-table>
 		</vxe-modal>
 		
 		<!-- 结束模态框 -->
@@ -72,6 +91,8 @@
 				allAlign: null,
 				selectRow: null,
 				showEdit: false,
+				showPlace: false,
+				showDraw: false,
 				submitLoading: false,
 				tableData: [
 					{
@@ -91,6 +112,18 @@
 						status: 1
 					}
 				],
+				drawData: [
+					{
+						id: '',
+						name: '',
+						telephone: '',
+						num: '',
+						place: ''
+					}
+				],
+				placeData: [
+					
+				],
 				formData: {
 					name: '',
 					maxNum: '',
@@ -103,7 +136,7 @@
 					limit: [{ required: true, message: '请选择性别' }],
 					startTime: [{ required: true, message: '请输入开始时间' }],
 					endTime: [{ required: true, message: '请输入结束时间' }]
-					},
+				},
 				formItems: [
 					{ title: '预约信息', span: 24, titleAlign: 'left', titleWidth: 200, titlePrefix: { icon: 'fa fa-address-card-o' } },
 					{ field: 'maxNum', title: '投放数量', span: 12, itemRender: { name: '$input', props: { type: 'number', placeholder: '请输入投放数量' } } },
@@ -150,6 +183,12 @@
 			},
 			showList(row) {
 				
+			},
+			showDrawModal(id) {
+				this.showDraw = true
+			},
+			showPlaceModal(id) {
+				this.showPlace = true
 			}
 		}
 	}
