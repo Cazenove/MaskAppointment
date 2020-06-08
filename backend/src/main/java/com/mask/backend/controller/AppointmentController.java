@@ -1,5 +1,6 @@
 package com.mask.backend.controller;
 
+import com.mask.backend.dto.RegionalDrawDTO;
 import com.mask.backend.pojo.Appointment;
 import com.mask.backend.resource.AppointResource;
 import com.mask.backend.resource.QueryResource;
@@ -98,6 +99,10 @@ public class AppointmentController {
     @GetMapping("/place/statistics")
     @ResponseBody
     Object listCount(@RequestBody @Valid Integer id) {
-        return ResponceBody.ok(null,appointmentService.listCount(id));
+        List<RegionalDrawDTO> list = appointmentService.listCount(id);
+        if (list.size() == 0) {
+            return ResponceBody.error("id无效或轮次未开始");
+        }
+        return ResponceBody.ok(null,list);
     }
 }
