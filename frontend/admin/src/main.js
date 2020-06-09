@@ -12,6 +12,7 @@ import VueAxios from 'vue-axios'
 import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/index.css'
+import html2canvas from "html2canvas"
 
 Vue.config.productionTip = false
 Vue.use(VXETable)

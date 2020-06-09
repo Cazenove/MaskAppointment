@@ -5,6 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "axios": "^0.19.2",
+    "html2canvas": "^1.0.0-rc.5",
     "prettier": "^1.12.1",
     "store": "^2.0.12",
     "vue-qr": "^2.2.1"

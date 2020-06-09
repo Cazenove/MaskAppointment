@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view ref="imageDom">
 		<cu-custom bgColor="bg-gradual-blue" :isBack="true"><block slot="backText">返回</block><block slot="content">预约查询</block></cu-custom>
 		<view class="cu-bar search bg-white">
 			<view class="search-form round">
@@ -12,14 +12,16 @@
 		</view>
 		<view v-if="isDraw">
 			<view class="flex solid-bottom padding justify-center">
-				<vue-qr v-bind:text="this.data" :size="300"></vue-qr>
+				<vue-qr v-bind:text="this.data" :size="300" id="qrcode"></vue-qr>
 			</view>
 			<view class="flex-sub text-center">
 				<view class="solid-bottom text-xl padding">
 					<text class="text-black text-bold">您已中签，凭二维码到指定药房购买口罩！</text>
 				</view>
 			</view>
-			<button class="cu-btn bg-red margin-tb-sm lg">保存到相册</button>
+			<!-- <view class="flex solid-bottom padding justify-center">
+				<button class="cu-btn bg-red margin-tb-sm lg" @click="save">保存到相册</button>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -28,6 +30,7 @@
 	import vueQr from 'vue-qr'
 	import api from '../../httpConfig.js'
 	import axios from 'axios'
+	import html2canvas from "html2canvas"
 	export default {
 		data() {
 			return {
@@ -47,7 +50,8 @@
 					telephone: this.telephone
 				}).then(function(res) {
 					if(res.data.status == 1) {
-						self.$data.data = res.data.data.id+res.data.data.name+res.data.data.telephone+res.data.data.startTime+res.data.data.endTime;
+						console.log(res);
+						self.$data.data = res.data.data.idNum+res.data.data.name+res.data.data.time+res.data.data.place+res.data.data.appointNum;
 						self.isDraw = true;
 					} else {
 						uni.showToast({
