@@ -59,4 +59,22 @@ public interface AppointmentService {
      * @return 各地中签数
      */
     List<RegionalDrawDTO> listCount(Integer id);
+
+    /**
+     * 判断身份证本轮是否预约过
+     *
+     * @param idNum 身份证
+     * @param appointmentId 预约轮次
+     * @return <code>true</code> - 预约过 </br> <code>false</code> - 没预约过
+     */
+    boolean isIdnumAppointed(String idNum, Integer appointmentId);
+
+    /**
+     * 判断电话本轮是否预约过
+     *
+     * @param telephone 电话
+     * @param appointmentId 预约轮次
+     * @return <code>true</code> - 预约过 </br> <code>false</code> - 没预约过
+     */
+    boolean isTelephoneAppointed(String telephone, Integer appointmentId);
 }

@@ -58,26 +58,27 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public String doAppointment(AppointResource resource) {
-        if (getStatus() == null) {
+        Appointment curAppointment = getStatus();
+        if (curAppointment == null) {
             return "未开放预约";
         }
-
-        AppointmentExample example = new AppointmentExample();
-        AppointmentExample.Criteria criteria = example.createCriteria();
-        criteria.andStatussEqualTo(1);
-        List<Appointment> appointments = appointmentMapper.selectByExample(example);
-        if (appointments.get(0).getLimitt() < resource.getAppointNum()) {
+        if (curAppointment.getLimitt() < resource.getAppointNum()) {
             return "预约口罩数超过限制";
+        }
+        if (isIdnumAppointed(resource.getIdNum(), curAppointment.getId())) {
+            return "该身份证号码本轮次已预约";
+        }
+        if (isTelephoneAppointed(resource.getTelephone(), curAppointment.getId())) {
+            return "该电话号码本轮次已预约";
         }
 
         Waiting newWaiting = PropertyMapperUtil.map(resource, Waiting.class);
-        newWaiting.setAppointmentId(appointments.get(0).getId());
+        newWaiting.setAppointmentId(curAppointment.getId());
         if (waitingMapper.insert(newWaiting) == 1) {
             return "ok";
         }
-        else {
-            return "服务器内部错误";
-        }
+
+        return "服务器内部错误";
     }
 
     @Override
@@ -127,5 +128,25 @@ public class AppointmentServiceImpl implements AppointmentService {
             }
         }
         return dataList;
+    }
+
+    @Override
+    public boolean isIdnumAppointed(String idNum, Integer appointmentId) {
+        WaitingExample example = new WaitingExample();
+        WaitingExample.Criteria criteria = example.createCriteria();
+        criteria.andIdNumEqualTo(idNum)
+                .andAppointmentIdEqualTo(appointmentId);
+
+        return !waitingMapper.selectByExample(example).isEmpty();
+    }
+
+    @Override
+    public boolean isTelephoneAppointed(String telephone, Integer appointmentId) {
+        WaitingExample example = new WaitingExample();
+        WaitingExample.Criteria criteria = example.createCriteria();
+        criteria.andTelephoneEqualTo(telephone)
+                .andAppointmentIdEqualTo(appointmentId);
+
+        return !waitingMapper.selectByExample(example).isEmpty();
     }
 }
