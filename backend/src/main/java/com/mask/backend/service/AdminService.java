@@ -3,6 +3,7 @@ package com.mask.backend.service;
 import com.mask.backend.pojo.Appointment;
 import com.mask.backend.pojo.Draw;
 import com.mask.backend.resource.AppointmentStartResource;
+import com.mask.backend.resource.DrawResultResource;
 
 import java.util.List;
 
@@ -42,13 +43,13 @@ public interface AdminService {
      * @param id 预约轮次id
      * @return 中签名单列表
      */
-    List<Draw> listDraw(int id);
+    List<DrawResultResource> listDraw(int id);
 
     /**
      * 获取全部中签信息
-     * @return 全部中签信息列表1
+     * @return 全部中签信息列表
      */
-    List<Draw> listAllDraw();
+    List<DrawResultResource> listAllDraw();
 
     /**
      * 获取某个预约轮次信息

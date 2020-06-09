@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mask.backend.mapper.CustomDrawMapper">
+    <resultMap id="BaseResultMap" type="com.mask.backend.resource.DrawResultResource">
+        <id column="appointment_id" jdbcType="INTEGER" property="appointmentId" />
+        <result column="namee" jdbcType="VARCHAR" property="name" />
+        <result column="id_num" jdbcType="VARCHAR" property="idNum" />
+        <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+        <result column="appoint_num" jdbcType="VARCHAR" property="appointNum" />
+        <result column="place" jdbcType="VARCHAR" property="place" />
+    </resultMap>
+
+    <select id="getDrawResult" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select d.appointment_id, w.namee, id_num, telephone, w.appoint_num, p.place
+        from draw_list as d , place as p , waiting_list as w
+        where d.appointment_id = #{id,jdbcType=INTEGER} and d.waiting_id = w.id and w.place_id = p.id
+    </select>
+
+    <select id="getAllDrawResult" resultMap="BaseResultMap">
+        select d.appointment_id, w.namee, id_num, telephone, w.appoint_num, p.place
+        from draw_list as d , place as p , waiting_list as w
+        where d.waiting_id = w.id and w.place_id = p.id
+    </select>
+
+</mapper>

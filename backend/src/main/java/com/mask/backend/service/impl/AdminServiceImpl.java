@@ -1,10 +1,12 @@
 package com.mask.backend.service.impl;
 
 import com.mask.backend.mapper.AppointmentMapper;
+import com.mask.backend.mapper.CustomDrawMapper;
 import com.mask.backend.mapper.DrawMapper;
 import com.mask.backend.mapper.WaitingMapper;
 import com.mask.backend.pojo.*;
 import com.mask.backend.resource.AppointmentStartResource;
+import com.mask.backend.resource.DrawResultResource;
 import com.mask.backend.service.AdminService;
 import com.mask.backend.util.PropertyMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class AdminServiceImpl implements AdminService {
     DrawMapper drawMapper;
     @Autowired
     WaitingMapper waitingMapper;
+    @Autowired
+    CustomDrawMapper customDrawMapper;
 
     @Override
     public boolean lastAppointmentOpening() {
@@ -75,17 +79,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Draw> listDraw(int id) {
-        DrawExample example = new DrawExample();
-        DrawExample.Criteria criteria = example.createCriteria();
-        criteria.andAppointmentIdEqualTo(id);
-        return drawMapper.selectByExample(example);
+    public List<DrawResultResource> listDraw(int id) {
+        return customDrawMapper.getDrawResult(id);
     }
 
     @Override
-    public List<Draw> listAllDraw() {
-        DrawExample example = new DrawExample();
-        return drawMapper.selectByExample(example);
+    public List<DrawResultResource> listAllDraw() {
+        return customDrawMapper.getAllDrawResult();
     }
 
     @Override

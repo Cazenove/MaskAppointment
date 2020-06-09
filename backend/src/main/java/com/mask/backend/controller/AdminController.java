@@ -1,11 +1,7 @@
 package com.mask.backend.controller;
 
 import com.mask.backend.pojo.Appointment;
-import com.mask.backend.pojo.Draw;
-import com.mask.backend.resource.AppointmentGetResource;
-import com.mask.backend.resource.DrawListResource;
-import com.mask.backend.resource.ResponceBody;
-import com.mask.backend.resource.AppointmentStartResource;
+import com.mask.backend.resource.*;
 import com.mask.backend.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -59,7 +55,7 @@ public class AdminController {
             return ResponceBody.error("该轮预约还未结束，无中签名单");
         }
 
-        List<Draw> list = adminService.listDraw(resource.getId());
+        List<DrawResultResource> list = adminService.listDraw(resource.getId());
 
         return ResponceBody.ok(null, list);
     }
@@ -67,7 +63,7 @@ public class AdminController {
     @GetMapping("/draw/list")
     @ResponseBody
     public Object getAllDrawList() {
-        List<Draw> list = null;
+        List<DrawResultResource> list = null;
         try {
             list = adminService.listAllDraw();
         } catch (Exception exc) {
