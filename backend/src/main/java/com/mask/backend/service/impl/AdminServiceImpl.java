@@ -8,6 +8,7 @@ import com.mask.backend.resource.AppointmentStartResource;
 import com.mask.backend.service.AdminService;
 import com.mask.backend.util.PropertyMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * @author SilverBay
  */
+@Service
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
