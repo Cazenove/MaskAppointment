@@ -10,6 +10,7 @@ import com.mask.backend.service.AppointmentService;
 import com.mask.backend.util.PropertyMapperUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,17 +38,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     CustomAppointmentMapper customAppointmentMapper;
 
     @Override
-    public int getStatus() {
+    public Appointment getStatus() {
         AppointmentExample example = new AppointmentExample();
         AppointmentExample.Criteria criteria = example.createCriteria();
         criteria.andStatussEqualTo(1);
         List<Appointment> appointments = appointmentMapper.selectByExample(example);
         if (appointments.isEmpty()) {
-            return 0;
+            return null;
         }
-        else {
-            return 1;
-        }
+        return appointments.get(0);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public String doAppointment(AppointResource resource) {
-        if (getStatus() == 0) {
+        if (getStatus() == null) {
             return "未开放预约";
         }
 
@@ -114,14 +113,14 @@ public class AppointmentServiceImpl implements AppointmentService {
             Place place = placeMapper.selectByExample(placeExample).get(0);
             //dto赋值过程  flag标记是否是已记录地区，若该地区未被记录则新加一个对象进入list
             Integer flag = 0;
-            for (RegionalDrawDTO data : dataList){
-                if (data.getPlace().equals(place.getPlace())){
+            for (RegionalDrawDTO data : dataList) {
+                if (data.getPlace().equals(place.getPlace())) {
                     data.setCount(data.getCount() + 1);
                     flag = 1;
                     break;
                 }
             }
-            if (flag == 0){
+            if (flag == 0) {
                 RegionalDrawDTO newData = new RegionalDrawDTO();
                 newData.setPlace(place.getPlace());
                 dataList.add(newData);

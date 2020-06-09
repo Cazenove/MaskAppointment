@@ -19,7 +19,7 @@ public interface AppointmentService {
      *
      * @return 0 未开放预约 <br/> 1 开放预约
      */
-    int getStatus();
+    Appointment getStatus();
 
     /**
      * 获取取货地点列表
