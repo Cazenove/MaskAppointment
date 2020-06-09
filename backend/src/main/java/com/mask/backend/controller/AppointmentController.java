@@ -84,7 +84,7 @@ public class AppointmentController {
      * @param id 轮次id
      * @return 响应体
      */
-    @GetMapping("/place/statistics")
+    @PostMapping("/place/statistics")
     @ResponseBody
     Object listCount(@RequestBody @Valid Integer id) {
         List<RegionalDrawDTO> list = appointmentService.listCount(id);
