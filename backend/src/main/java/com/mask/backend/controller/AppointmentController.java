@@ -2,10 +2,7 @@ package com.mask.backend.controller;
 
 import com.mask.backend.dto.RegionalDrawDTO;
 import com.mask.backend.pojo.Appointment;
-import com.mask.backend.resource.AppointResource;
-import com.mask.backend.resource.QueryResource;
-import com.mask.backend.resource.QueryResult;
-import com.mask.backend.resource.ResponceBody;
+import com.mask.backend.resource.*;
 import com.mask.backend.service.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +28,10 @@ public class AppointmentController {
         if (appointment == null) {
             return ResponceBody.error("未开放预约");
         }
-        return ResponceBody.ok(null, appointment);
+        return ResponceBody.ok(null, StatusResult.builder()
+                .limit(appointment.getLimitt())
+                .endTime(appointment.getEndtime())
+                .startTime(appointment.getStarttime()).build());
     }
 
     /**
@@ -91,6 +91,6 @@ public class AppointmentController {
         if (list.size() == 0) {
             return ResponceBody.error("id无效或轮次未开始");
         }
-        return ResponceBody.ok(null,list);
+        return ResponceBody.ok(null, list);
     }
 }
