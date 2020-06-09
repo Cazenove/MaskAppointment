@@ -1,6 +1,7 @@
 package com.mask.backend.controller;
 
 import com.mask.backend.dto.RegionalDrawDTO;
+import com.mask.backend.pojo.Appointment;
 import com.mask.backend.resource.AppointResource;
 import com.mask.backend.resource.QueryResource;
 import com.mask.backend.resource.QueryResult;
@@ -26,10 +27,11 @@ public class AppointmentController {
     @GetMapping("/status")
     @ResponseBody
     Object getStatus() {
-        if (appointmentService.getStatus() == 1) {
-            return ResponceBody.ok(null, null);
+        Appointment appointment = appointmentService.getStatus();
+        if (appointment == null) {
+            return ResponceBody.error("未开放预约");
         }
-        return ResponceBody.error("未开放预约");
+        return ResponceBody.ok(null, appointment);
     }
 
     /**
