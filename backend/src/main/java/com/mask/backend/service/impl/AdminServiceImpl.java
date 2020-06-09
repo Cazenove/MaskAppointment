@@ -34,6 +34,7 @@ public class AdminServiceImpl implements AdminService {
     public boolean lastAppointmentOpening() {
         AppointmentExample example = new AppointmentExample();
         List<Appointment> list = appointmentMapper.selectByExample(example);
+        if(list.isEmpty()) { return false; }
         return list.get(list.size() -1).getStatuss() == 1;
     }
 
