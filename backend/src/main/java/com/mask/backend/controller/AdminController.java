@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 public class AdminController {
 
-    @Resource(name = "adminServiceImpl")
+    @Autowired
     AdminService adminService;
 
     @PostMapping("/start")

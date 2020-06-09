@@ -9,6 +9,7 @@ import com.mask.backend.service.AdminService;
 import com.mask.backend.util.PropertyMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author SilverBay
  */
 @Service
+@Transactional(rollbackFor = Throwable.class)
 public class AdminServiceImpl implements AdminService {
 
     @Autowired

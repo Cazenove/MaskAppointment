@@ -79,18 +79,6 @@ public class AppointmentController {
     }
 
     /**
-     * 返回所有轮次信息
-     *
-     *
-     * @return 响应体
-     */
-    @GetMapping("/appointment/list")
-    @ResponseBody
-    Object listAppointment() {
-        return ResponceBody.ok(null,appointmentService.listAppointment());
-    }
-
-    /**
      * 返回某轮各地中签数
      *
      * @param id 轮次id
