@@ -96,11 +96,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<RegionalDrawDTO> listCount(Integer id) {
         List<RegionalDrawDTO> dataList = new LinkedList<>();
         DrawExample drawExample = new DrawExample();
-        drawExample.createCriteria().andWaitingIdEqualTo(id);
+        drawExample.createCriteria().andAppointmentIdEqualTo(id);
         List<Draw> waitingList = drawMapper.selectByExample(drawExample);
-        if (waitingList.size() == 0) {
-            return null;
-        }
         for (Draw d : waitingList) {
             if (d.getWaitingId() == null){
                 continue;
