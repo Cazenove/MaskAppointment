@@ -43,7 +43,7 @@ public class AdminController {
         return ResponceBody.ok("已经结束预约", null);
     }
 
-    @GetMapping("/draw")
+    @PostMapping("/draw")
     @ResponseBody
     public Object getDrawList(@RequestBody @Valid DrawListResource resource) {
 

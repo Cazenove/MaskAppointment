@@ -4,7 +4,9 @@
   "description": "<p style=\"text-align: center;\"><img src=\"https://image.weilanwl.com/uni/UniAppReadme.jpg\" alt=\"ColorUI简介\"></img></p>",
   "main": "main.js",
   "dependencies": {
+    "axios": "^0.19.2",
     "prettier": "^1.12.1",
+    "store": "^2.0.12",
     "vue-qr": "^2.2.1"
   },
   "devDependencies": {},

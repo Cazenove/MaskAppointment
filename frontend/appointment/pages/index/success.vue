@@ -8,7 +8,7 @@
 						<text class=" cuIcon-roundcheckfill text-green"></text>
 					</view>
 					<view class="solid-bottom text-xxl padding">
-						<text class="text-black text-bold">您已预约成功！<br />在2020/x/x后可以查询中签状态！</text>
+						<text class="text-black text-bold">您已预约成功！<br />在{{$route.query.endTime}}后可以查询中签状态！</text>
 					</view>
 					<view class="padding flex flex-direction">
 						<button class="cu-btn bg-green margin-tb-sm lg" @click="goBack">返回</button>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+	import api from '../../httpConfig.js'
+	import axios from 'axios'
 	export default {
 		data() {
 			return {

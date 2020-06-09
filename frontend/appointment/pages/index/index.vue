@@ -29,10 +29,10 @@
 				</navigator>
 			</view>
 			<view v-if="status" class="bg-green padding margin text-center round">
-				目前是开放预约状态！
+				开放时间：{{startTime}}——{{endTime}}<br />每人限购{{limit}}个口罩
 			</view>
 			<view v-else class="bg-red padding margin text-center round">
-				预约暂未开放！
+				预约暂未开放！当前可进行预约查询
 			</view>
 			<view class="cu-card article">
 				<view class="cu-item shadow light" :class="'bg-blue'">
@@ -40,11 +40,8 @@
 					<view class="content">
 						<view class="desc">
 							<view class="text-black text-bold">
-								【面向群体】该平台面向福州市民<br />
-								【口罩预约】每轮预约每人限购10个口罩<br />
-								【预约规则】<br />
-								【预约购买】<br />
-								【那没事了】
+								该平台面向福州市民,市民可以在通过填写姓名、手机号、身份证号码来进行口罩预约，可以选择指定地点、预约指定数量的口罩。<br />
+								当前轮次结束后,可通过上方预约查询功能查询自己是否中签，中签将生成二维码,请凭二维码在三个工作日内前往指定地点购买口罩。
 							</view>
 						</view>
 					</view>
@@ -55,15 +52,29 @@
 </template>
 
 <script>
+	import api from '../../httpConfig.js'
+	import axios from 'axios'
 	export default {
 		data() {
 		return {
 				PageCur: 'basics',
-				status: false
+				status: false,
+				limit: '',
+				startTime: '',
+				endTime: ''
 			}
 		},
 		created() {
-			// this.status = true
+			var self = this;
+			axios.get(api.getStatus,null)
+			.then(function(res) {
+				self.limit = res.data.data.limit;
+				self.startTime = res.data.data.startTime;
+				self.endTime = res.data.data.endTime;
+				self.status = res.data.status;
+			}).catch(function(error) {
+				console.log(error);
+			})
 		},
 		methods: {
 			NavChange: function(e) {

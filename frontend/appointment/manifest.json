@@ -1,7 +1,7 @@
 {
     "name" : "appointment",
-    "appid" : "",
-    "description" : "",
+    "appid" : "__UNI__B80A9F7",
+    "description" : "口罩预约平台（作业用）",
     "versionName" : "ColorUi for UniApp 2.1.4",
     "versionCode" : 214,
     "transformPx" : false,
@@ -40,7 +40,9 @@
             },
             "ios" : {},
             /* ios打包配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {}
+            }
         }
     },
     /* SDK配置 */
@@ -48,7 +50,7 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "",
+        "appid" : "wxb378c811fedb21a9",
         "setting" : {
             "urlCheck" : false,
             "es6" : true

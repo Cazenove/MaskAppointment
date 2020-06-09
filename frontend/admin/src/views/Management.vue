@@ -18,14 +18,14 @@
 			<vxe-table border resizable row-key highlight-hover-row keep-source ref="xTable" :data="tableData">
 				<vxe-table-column type="checkbox" width="60"></vxe-table-column>
 				<vxe-table-column field="id" title="ID" width="80"></vxe-table-column>
-				<vxe-table-column field="maxNum" title="投放总量"></vxe-table-column>
-				<vxe-table-column field="limit" title="限购数量"></vxe-table-column>
-				<vxe-table-column field="startTime" title="开始时间"></vxe-table-column>
-				<vxe-table-column field="endTime" title="结束时间"></vxe-table-column>
-				<vxe-table-column field="status" title="状态" :formatter="formatterStatus"></vxe-table-column>
+				<vxe-table-column field="maxx" title="投放总量"></vxe-table-column>
+				<vxe-table-column field="limitt" title="限购数量"></vxe-table-column>
+				<vxe-table-column field="starttime" title="开始时间"></vxe-table-column>
+				<vxe-table-column field="endtime" title="结束时间"></vxe-table-column>
+				<vxe-table-column field="statuss" title="状态" :formatter="formatterStatus"></vxe-table-column>
 				<vxe-table-column title="操作">
 					<template v-slot="{ row }">
-						<div v-if="row.status == 1">
+						<div v-if="row.statuss == 1">
 							<button data-toggle="modal" data-target="#myModal" class="btn btn-danger">结束</button>
 						</div>
 						<div v-else>
@@ -39,26 +39,26 @@
 		</div>
 		
 		<!-- 新增模态框 -->
-		<vxe-modal v-model="showEdit" :title="新增预约轮次" width="800" :loading="submitLoading" resize destroy-on-close>
+		<vxe-modal v-model="showEdit" :title="'新增预约轮次'" width="800" :loading="submitLoading" resize destroy-on-close>
 			<vxe-form :data="formData" :items="formItems" :rules="formRules" title-align="right" title-width="100" @submit="submitEvent"></vxe-form>
 		</vxe-modal>
 		
 		<!-- 中奖名单 -->
-		<vxe-modal v-model="showDraw" :title="中奖名单" width="800" :loading="submitLoading" resize destroy-on-close>
+		<vxe-modal v-model="showDraw" :title="'中奖名单'" width="800" :loading="submitLoading" resize destroy-on-close>
 			<vxe-table border resizable row-key highlight-hover-row keep-source :data="drawData">
 				<vxe-table-column field="name" title="姓名"></vxe-table-column>
-				<vxe-table-column field="id" title="身份证号码"></vxe-table-column>
+				<vxe-table-column field="idNum" title="身份证号码"></vxe-table-column>
 				<vxe-table-column field="telephone" title="电话号码"></vxe-table-column>
-				<vxe-table-column field="num" title="预约数量"></vxe-table-column>
+				<vxe-table-column field="appointNum" title="预约数量"></vxe-table-column>
 				<vxe-table-column field="place" title="预约地点"></vxe-table-column>
 			</vxe-table>
 		</vxe-modal>
 		
 		<!-- 地区统计 -->
-		<vxe-modal v-model="showPlace" :title="中奖地区统计" width="800" :loading="submitLoading" resize destroy-on-close>
+		<vxe-modal v-model="showPlace" :title="'中奖地区统计'" width="800" :loading="submitLoading" resize destroy-on-close>
 			<vxe-table border resizable row-key highlight-hover-row keep-source :data="placeData">
 				<vxe-table-column field="place" title="地点"></vxe-table-column>
-				<vxe-table-column field="num" title="需要数量"></vxe-table-column>
+				<vxe-table-column field="count" title="需要数量"></vxe-table-column>
 			</vxe-table>
 		</vxe-modal>
 		
@@ -73,7 +73,7 @@
 					<div class="modal-body">确定要结束本轮预约吗？</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-danger" @click="endAppoint">确认结束</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" @click="endAppoint">确认结束</button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal -->
@@ -85,6 +85,7 @@
 <script>
 	import Nav from '../components/Nav.vue'
 	import axios from 'axios'
+	import api from '../router/httpConfig.js'
 	export default {
 		data() {
 			return {
@@ -94,28 +95,10 @@
 				showPlace: false,
 				showDraw: false,
 				submitLoading: false,
-				tableData: [
-					{
-						id: '1',
-						maxNum: 10000,
-						limit: 10,
-						startTime: '2020-06-01',
-						endTime: '2020-06-07',
-						status: 0
-					},
-					{
-						id: '1',
-						maxNum: 20000,
-						limit: 10,
-						startTime: '2020-06-07',
-						endTime: '2020-06-10',
-						status: 1
-					}
-				],
+				tableData: [],
 				drawData: [
 					{
 						id: '',
-						name: '',
 						telephone: '',
 						num: '',
 						place: ''
@@ -125,21 +108,20 @@
 					
 				],
 				formData: {
-					name: '',
-					maxNum: '',
+					max: '',
 					limit: '',
 					startTime: '',
 					endTime: ''
 				},
 				formRules: {
-					maxNum: [{ required: true, message: '请输入昵称' }],
+					max: [{ required: true, message: '请输入投放数量' }],
 					limit: [{ required: true, message: '请选择性别' }],
 					startTime: [{ required: true, message: '请输入开始时间' }],
 					endTime: [{ required: true, message: '请输入结束时间' }]
 				},
 				formItems: [
 					{ title: '预约信息', span: 24, titleAlign: 'left', titleWidth: 200, titlePrefix: { icon: 'fa fa-address-card-o' } },
-					{ field: 'maxNum', title: '投放数量', span: 12, itemRender: { name: '$input', props: { type: 'number', placeholder: '请输入投放数量' } } },
+					{ field: 'max', title: '投放数量', span: 12, itemRender: { name: '$input', props: { type: 'number', placeholder: '请输入投放数量' } } },
 					{ field: 'limit', title: '限购数量', span: 12, itemRender: { name: '$input', props: { type: 'number', placeholder: '请输入限购数量' } } },
 					{ field: 'startTime', title: '开始时间', span: 12, itemRender: { name: '$input', props: { type: 'date', placeholder: '请选择开始日期' } } },
 					{ field: 'endTime', title: '结束时间', span: 12, itemRender: { name: '$input', props: { type: 'date', placeholder: '请选择结束日期' } } },
@@ -151,6 +133,14 @@
 			Nav
 		},
 		created() {
+			var self = this;
+			axios.get(api.appointmentList,null)
+			.then(function(res) {
+				console.log(res);
+				self.tableData = res.data.data;
+			}).catch(function(error) {
+				console.log(error);
+			})
 		},
 		methods: {
 			formatterStatus({cellValue}) {
@@ -162,7 +152,7 @@
 			},
 			startAppoint() {
 				this.formData = {
-					maxNum: '',
+					max: '',
 					limit: '',
 					startTime: '',
 					endTime: ''
@@ -171,24 +161,52 @@
 				this.showEdit = true
 			},
 			endAppoint() {
-				axios.post('',null)
+				axios.post(api.end,null)
 				.then(function(res) {
-					
+					console.log(res.data.msg);
 				}).catch(function(error) {
 					console.log(error);
 				})
 			},
 			submitEvent() {
-				
-			},
-			showList(row) {
-				
+				this.formData.max = Number(this.formData.max);
+				this.formData.limit = Number(this.formData.limit);
+				console.log(this.formData);
+				axios.post(api.start,{
+					maxx: this.formData.max,
+					limitt: this.formData.limit,
+					starttime: this.formData.startTime,
+					endtime: this.formData.endTime
+				}).then(function(res) {
+					alert(res.data.msg);
+				}).catch(function(error) {
+					console.log(error);
+				})
 			},
 			showDrawModal(id) {
-				this.showDraw = true
+				var self = this;
+				axios.post(api.draw, {
+					id: Number(id)
+				}).then(function(res) {
+					self.drawData = res.data.data;
+					self.showDraw = true
+				}).catch(function(error) {
+					console.log(error);
+				})
 			},
 			showPlaceModal(id) {
-				this.showPlace = true
+				var self = this;
+				console.log(id);
+				axios.get(api.placeStatistics, {
+					params: {
+						id: Number(id)
+					}
+				}).then(function(res) {
+					self.placeData = res.data.data
+					self.showPlace = true
+				}).catch(function(error) {
+					console.log(error);
+				})
 			}
 		}
 	}

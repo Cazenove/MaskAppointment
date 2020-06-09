@@ -4,7 +4,7 @@
 			<block slot="backText">返回</block>
 			<block slot="content">口罩预约</block>
 		</cu-custom>
-		<form>
+		<form v-if="position">
 			<view class="cu-form-group margin-top">
 				<view class="title">姓名</view>
 				<input placeholder="请输入您的姓名" name="input" v-model="form.name"></input>
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+	import api from '../../httpConfig.js'
+	import axios from 'axios'
 	export default {
 		data() {
 			return {
@@ -49,6 +51,8 @@
 				index1: -1,
 				masknumber: [],
 				position: [],
+				positionToId: {},
+				endTime: '',
 				form: {
 					name: '',
 					id: '',
@@ -80,16 +84,27 @@
 				}
 			}
 		},
-		mounted() {
-			this.position = [
-				'A药房',
-				'B药房',
-				'C药房',
-				'D药房'
-			]
-			for(var i=1; i<=10; i++) {
-				this.masknumber[i] = i;
-			}
+		created() {
+			var self = this;
+			axios.get(api.getStatus,null)
+			.then(function(res) {
+				console.log(res);
+				self.endTime = res.data.data.endTime;
+				for(var i=1; i<=res.data.data.limit; i++) {
+					self.masknumber[i] = i;
+				}
+			}).catch(function(error) {
+				console.log(error);
+			})
+			axios.get(api.getPlace,null)
+			.then(function(res) {
+				for(var i=0; i<res.data.data.length; i++) {
+					self.positionToId[res.data.data[i].place] = res.data.data[i].id;
+					self.position[i] = res.data.data[i].place;
+				}
+			}).catch(function(error) {
+				console.log(error);
+			})
 		},
 		methods: {
 			PickerChange(e) {
@@ -108,11 +123,30 @@
 				uni.showLoading({
 					title: "表单提交中..."
 				});
-				if(this.form.name == "成功") {
-					this.$router.push('/pages/index/success')
-				} else if(this.form.name == "失败") {
-					this.$router.push('/pages/index/failed')
-				}
+				var self = this;
+				this.form.position = this.positionToId[this.position[this.index1]];
+				this.form.number = this.index;
+				
+				axios.post(api.appoint,{
+					appointNum: this.form.number,
+					idNum: this.form.id,
+					namee: this.form.name,
+					placeId: this.form.position,
+					telephone: this.form.telephone
+				}).then(function(res) {
+					if(res.data.status == 1) {
+						self.$router.push({path: '/pages/index/success',query:{endTime: self.endTime}})
+					} else {
+						self.$router.push({path: '/pages/index/failed',query:{msg: res.data.msg}})
+					}
+				}).catch(function(error) {
+					console.log(error);
+				})
+				// if(this.form.name == "成功") {
+				// 	this.$router.push('/pages/index/success')
+				// } else if(this.form.name == "失败") {
+				// 	this.$router.push('/pages/index/failed')
+				// }
 			},
 			validate(key) {
 				let bool = true;

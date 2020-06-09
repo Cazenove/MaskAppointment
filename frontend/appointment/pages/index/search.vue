@@ -26,6 +26,8 @@
 
 <script>
 	import vueQr from 'vue-qr'
+	import api from '../../httpConfig.js'
+	import axios from 'axios'
 	export default {
 		data() {
 			return {
@@ -39,8 +41,23 @@
 		},
 		methods: {
 			search() {
-				this.isDraw = true;
-				this.data = this.telephone;
+				var self = this;
+				self.isDraw = false;
+				axios.post(api.query,{
+					telephone: this.telephone
+				}).then(function(res) {
+					if(res.data.status == 1) {
+						self.$data.data = res.data.data.id+res.data.data.name+res.data.data.telephone+res.data.data.startTime+res.data.data.endTime;
+						self.isDraw = true;
+					} else {
+						uni.showToast({
+							image: "../../static/close.png",
+							title: "很遗憾您没有中签！",
+						})
+					}
+				}).catch(function(error) {
+					console.log(error);
+				})
 			}
 		}
 	}

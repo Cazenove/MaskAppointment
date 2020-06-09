@@ -8,7 +8,7 @@
 						<text class=" cuIcon-roundclosefill text-red"></text>
 					</view>
 					<view class="solid-bottom text-xl padding">
-						<text class="text-black text-bold">预约失败<br />(原因)</text>
+						<text class="text-black text-bold">预约失败<br />原因:{{$route.query.msg}}</text>
 					</view>
 					<view class="padding flex flex-direction">
 						<button class="cu-btn bg-red margin-tb-sm lg" @click="goBack">返回</button>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+	import api from '../../httpConfig.js'
+	import axios from 'axios'
 	export default {
 		data() {
 			return {
