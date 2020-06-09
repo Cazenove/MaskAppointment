@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.websocket.Session;
 
 @RestController
 public class UserController {

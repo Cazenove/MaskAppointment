@@ -6,7 +6,6 @@ import com.mask.backend.pojo.*;
 import com.mask.backend.resource.AppointResource;
 import com.mask.backend.resource.QueryResource;
 import com.mask.backend.resource.QueryResult;
-import com.mask.backend.resource.ResponceBody;
 import com.mask.backend.service.AppointmentService;
 import com.mask.backend.util.PropertyMapperUtil;
 import org.springframework.stereotype.Service;
