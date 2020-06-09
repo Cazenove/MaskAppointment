@@ -51,8 +51,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int startAppointment(AppointmentStartResource resource) {
-        Appointment appointment = new Appointment();
-        appointment = PropertyMapperUtil.map(resource, Appointment.class);
+        Appointment appointment = PropertyMapperUtil.map(resource, Appointment.class);
+        appointment.setStatuss(1);
         return appointmentMapper.insertSelective(appointment);
     }
 
