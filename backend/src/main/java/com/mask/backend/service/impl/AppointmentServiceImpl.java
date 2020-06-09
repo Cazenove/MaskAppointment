@@ -99,9 +99,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         drawExample.createCriteria().andAppointmentIdEqualTo(id);
         List<Draw> waitingList = drawMapper.selectByExample(drawExample);
         for (Draw d : waitingList) {
-            if (d.getWaitingId() == null){
-                continue;
-            }
             //获取单个中签号码信息
             WaitingExample waitingExample = new WaitingExample();
             waitingExample.createCriteria().andIdEqualTo(d.getWaitingId());
