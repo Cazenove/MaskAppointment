@@ -4,7 +4,7 @@ public class RegionalDrawDTO {
 
     public RegionalDrawDTO(){
         this.place = "null";
-        this.count = 1;
+        this.count = 0;
     }
 
     private String place;

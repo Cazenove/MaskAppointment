@@ -3,9 +3,7 @@ package com.mask.backend.service;
 import com.mask.backend.dto.RegionalDrawDTO;
 import com.mask.backend.pojo.Appointment;
 import com.mask.backend.pojo.Place;
-import com.mask.backend.resource.AppointResource;
-import com.mask.backend.resource.QueryResource;
-import com.mask.backend.resource.QueryResult;
+import com.mask.backend.resource.*;
 
 import java.util.List;
 

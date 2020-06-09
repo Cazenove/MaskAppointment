@@ -86,7 +86,7 @@ public class AppointmentController {
      */
     @PostMapping("/place/statistics")
     @ResponseBody
-    Object listCount(@RequestBody @Valid Integer id) {
+    Object listCount(@RequestParam (value = "id")@Valid Integer id) {
         List<RegionalDrawDTO> list = appointmentService.listCount(id);
         if (list.size() == 0) {
             return ResponceBody.error("id无效或轮次未开始");

@@ -3,9 +3,7 @@ package com.mask.backend.service.impl;
 import com.mask.backend.dto.RegionalDrawDTO;
 import com.mask.backend.mapper.*;
 import com.mask.backend.pojo.*;
-import com.mask.backend.resource.AppointResource;
-import com.mask.backend.resource.QueryResource;
-import com.mask.backend.resource.QueryResult;
+import com.mask.backend.resource.*;
 import com.mask.backend.service.AppointmentService;
 import com.mask.backend.util.PropertyMapperUtil;
 import org.springframework.stereotype.Service;
@@ -104,6 +102,9 @@ public class AppointmentServiceImpl implements AppointmentService {
             return null;
         }
         for (Draw d : waitingList) {
+            if (d.getWaitingId() == null){
+                continue;
+            }
             //获取单个中签号码信息
             WaitingExample waitingExample = new WaitingExample();
             waitingExample.createCriteria().andIdEqualTo(d.getWaitingId());
@@ -116,7 +117,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             Integer flag = 0;
             for (RegionalDrawDTO data : dataList) {
                 if (data.getPlace().equals(place.getPlace())) {
-                    data.setCount(data.getCount() + 1);
+                    data.setCount(data.getCount() + waiting.getAppointNum());
                     flag = 1;
                     break;
                 }
@@ -124,6 +125,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             if (flag == 0) {
                 RegionalDrawDTO newData = new RegionalDrawDTO();
                 newData.setPlace(place.getPlace());
+                newData.setCount(waiting.getAppointNum());
                 dataList.add(newData);
             }
         }
