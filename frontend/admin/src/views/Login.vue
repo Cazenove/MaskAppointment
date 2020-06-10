@@ -1,6 +1,11 @@
 <template>
-	<div id="Login">
-		<div style="display: flex;justify-content: center;margin-top: 150px">
+	<div id="Login" >
+		<div class="jumbotron">
+			<div class="container">
+				<p class="text-white"><font size="7">口罩预约系统后台</font></p>
+			</div>
+		</div>
+		<div style="display: flex;justify-content: center;margin-top: 100px">
 			<el-card style="width: 400px">
 				<div slot="header" class="clearfix">
 					<span>登录</span>
@@ -55,4 +60,7 @@
 </script>
 
 <style>
+	.jumbotron{
+		background-image: url(../assets/1580893186.jpg);
+	}
 </style>
