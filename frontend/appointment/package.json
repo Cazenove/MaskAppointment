@@ -4,7 +4,7 @@
   "description": "<p style=\"text-align: center;\"><img src=\"https://image.weilanwl.com/uni/UniAppReadme.jpg\" alt=\"ColorUI简介\"></img></p>",
   "main": "main.js",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "html2canvas": "^1.0.0-rc.5",
     "prettier": "^1.12.1",
     "store": "^2.0.12",
